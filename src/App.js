@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Grid,
   Stack,
@@ -34,6 +34,8 @@ import MHVKImage from './assets/mhvk.jpeg'
 import COVID19Image from './assets/covid19.jpeg'
 import CalendarEvent from './assets/wutipat_graduation_event.ics'
 
+const PRIMARY_COLOR = '#bb2660' //'#0066cc'
+
 const theme = createTheme({
   typography: {
     fontFamily: 'Roboto, sans-serif',
@@ -43,10 +45,10 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#0066cc',
+      main: PRIMARY_COLOR,
     },
     secondary: {
-      main: '#000000',
+      main: '#1d1d1f',
     },
   },
 })
@@ -96,7 +98,7 @@ function App() {
           </Stack>
           <Stack>
             <Grid container spacing={2}>
-              <Grid item xs={6} md={5} xl={3}>
+              <Grid item xs={6} md={5} lg={4}>
                 <Stack direction='row' spacing={1} alignItems='center'>
                   <DirectionsWalkIcon color='primary' fontSize='small' />
                   <Link
@@ -108,7 +110,7 @@ function App() {
                   </Link>
                 </Stack>
               </Grid>
-              <Grid item xs={6} md={7} xl={9}>
+              <Grid item xs={6} md={7} lg={8}>
                 <Stack direction='row' spacing={1} alignItems='center'>
                   <DirectionsBusIcon color='primary' fontSize='small' />
                   <Link
@@ -168,7 +170,7 @@ function App() {
       content: (
         <>
           <Grid container spacing={2}>
-            <Grid item xs={6} md={5} xl={3}>
+            <Grid item xs={6} md={5} lg={4}>
               <Stack direction='row' spacing={1} alignItems='center'>
                 <CallIcon color='primary' fontSize='small' />
                 <Link href='tel:0855206222' underline='hover'>
@@ -176,7 +178,7 @@ function App() {
                 </Link>
               </Stack>
             </Grid>
-            <Grid item xs={6} md={7} xl={9}>
+            <Grid item xs={6} md={7} lg={8}>
               <Stack direction='row' spacing={1} alignItems='center'>
                 <ForumIcon color='primary' fontSize='small' />
                 <Link
@@ -188,8 +190,8 @@ function App() {
                 </Link>
               </Stack>
             </Grid>
-            <Grid xs={0} md={0} xl={0}></Grid>
-            <Grid item xs={6} md={5} xl={3}>
+            <Grid xs={0} md={0} lg={0}></Grid>
+            <Grid item xs={6} md={5} lg={4}>
               <Stack direction='row' spacing={1} alignItems='center'>
                 <FacebookIcon color='primary' fontSize='small' />
                 <Link
@@ -201,7 +203,7 @@ function App() {
                 </Link>
               </Stack>
             </Grid>
-            <Grid item xs={6} md={7} xl={9}>
+            <Grid item xs={6} md={7} lg={8}>
               <Stack direction='row' spacing={1} alignItems='center'>
                 <InstagramIcon color='primary' fontSize='small' />
                 <Link
@@ -213,7 +215,7 @@ function App() {
                 </Link>
               </Stack>
             </Grid>
-            <Grid xs={0} md={0} xl={0}></Grid>
+            <Grid xs={0} md={0} lg={0}></Grid>
           </Grid>
           <Typography variant='body1'>
             In case you can not make an appearance, you can video call me via{' '}
@@ -239,7 +241,7 @@ function App() {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6} lg={4}>
             <Stack spacing={3} alignItems='center'>
-              <GroupsIcon sx={{ fontSize: 48 }} />
+              <GroupsIcon sx={{ fontSize: 48 }} color='primary' />
               <Typography variant='body1' align='center' sx={{ width: 200 }}>
                 Your presence is the best gift you can give.
               </Typography>
@@ -247,7 +249,7 @@ function App() {
           </Grid>
           <Grid item xs={12} sm={6} lg={4}>
             <Stack spacing={3} alignItems='center'>
-              <VolunteerActivismIcon sx={{ fontSize: 48 }} />
+              <VolunteerActivismIcon sx={{ fontSize: 48 }} color='primary' />
               <Typography variant='body1' align='center' sx={{ width: 200 }}>
                 Gifts are welcome but optional.
               </Typography>
@@ -255,7 +257,7 @@ function App() {
           </Grid>
           <Grid item xs={12} sm={12} lg={4}>
             <Stack spacing={3} alignItems='center'>
-              <CameraRollIcon sx={{ fontSize: 48 }} />
+              <CameraRollIcon sx={{ fontSize: 48 }} color='primary' />
               <Typography variant='body1' align='center' sx={{ width: 200 }}>
                 Polaroid is available as a souvenir if you needed.
               </Typography>
@@ -322,6 +324,7 @@ function App() {
               px: 2,
               py: 0.5,
               mt: '-14px',
+              boxShadow: '0 4px 20px 0 rgba(0,0,0,0.12)',
             }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -347,6 +350,19 @@ function App() {
       ),
     },
   ]
+
+  const [topBarBgColor, setTopBarBgColor] = useState(PRIMARY_COLOR)
+  const [topBarTextColor, setTopBarTextColor] = useState('#fff')
+  const [topBarLinkColor, setTopBarLinkColor] = useState('#fff')
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTopBarBgColor('#f5f5f7')
+      setTopBarTextColor('#1d1d1f')
+      setTopBarLinkColor(PRIMARY_COLOR)
+    }, 1000)
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container sx={{ backgroundColor: '#fbfbfd' }}>
@@ -356,11 +372,47 @@ function App() {
           md={4}
           sx={{ backgroundColor: '#000', color: '#fff', minHeight: 800 }}
         ></Grid>
-        <Grid item xs={12} md={8} p={{ xs: 8, md: 12 }}>
-          <Stack spacing={10}>
-            <Stack spacing={8} mb={8} alignItems='center'>
+        <Grid item xs={12} md={8}>
+          <Stack
+            sx={{
+              backgroundColor: topBarBgColor,
+              py: 1.5,
+              px: 8,
+              transition: '1.8s',
+            }}
+            direction='row'
+            justifyContent='center'
+            alignItems='center'
+            spacing={2}
+          >
+            <Typography
+              variant='body1'
+              align='center'
+              sx={{ color: topBarTextColor, fontSize: 14, transition: '1.8s' }}
+            >
+              Please complete a{' '}
+              <Link
+                href='#'
+                underline='hover'
+                sx={{
+                  color: topBarLinkColor,
+                  fontSize: 14,
+                  transition: '1.8s',
+                }}
+              >
+                COVID-19 risk assessment
+              </Link>{' '}
+              at least 14 days before joining an event.
+            </Typography>
+          </Stack>
+          <Stack spacing={10} p={{ xs: 8, md: 12 }}>
+            <Stack spacing={6} mb={8} alignItems='center'>
               <SchoolIcon sx={{ fontSize: 48 }} color='primary' />
-              <Typography variant='body1' align='center' sx={{ fontSize: 18 }}>
+              <Typography
+                variant='body1'
+                align='center'
+                sx={{ fontSize: 18, color: '#6e6e73' }}
+              >
                 You are invited to
               </Typography>
               <Stack alignItems='center'>
@@ -398,7 +450,7 @@ function App() {
                 href={CalendarEvent}
                 disableElevation
               >
-                Add to calendar
+                Add to Calendar
               </Button>
             </Stack>
             {info.map((item) => (
