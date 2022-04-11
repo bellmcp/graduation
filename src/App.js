@@ -14,8 +14,9 @@ import {
   AccordionSummary,
   AccordionDetails,
   Button,
+  useMediaQuery,
 } from '@mui/material'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 
 import SchoolIcon from '@mui/icons-material/School'
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk'
@@ -31,18 +32,13 @@ import GroupsIcon from '@mui/icons-material/Groups'
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism'
 
 import MHVKImage from './assets/mhvk.jpeg'
-import COVID19Image from './assets/covid19.jpeg'
+import ProtocolImage from './assets/protocol_guest.jpeg'
+import HeroIamge from './assets/01-min.JPEG'
 import CalendarEvent from './assets/wutipat_graduation_event.ics'
 
 const PRIMARY_COLOR = '#bb2660' //'#0066cc'
 
-const theme = createTheme({
-  typography: {
-    fontFamily: 'Roboto, sans-serif',
-    allVariants: {
-      color: '#1d1d1f',
-    },
-  },
+const commonStyle = {
   palette: {
     primary: {
       main: PRIMARY_COLOR,
@@ -51,6 +47,36 @@ const theme = createTheme({
       main: '#1d1d1f',
     },
   },
+}
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Roboto, sans-serif',
+    allVariants: {
+      color: '#1d1d1f',
+    },
+  },
+  ...commonStyle,
+})
+
+const themeTH = createTheme({
+  typography: {
+    fontFamily: 'Kanit, sans-serif',
+    allVariants: {
+      color: '#1d1d1f',
+    },
+  },
+  ...commonStyle,
+})
+
+const themeSerif = createTheme({
+  typography: {
+    fontFamily: 'Playfair Display, serif',
+    allVariants: {
+      color: '#1d1d1f',
+    },
+  },
+  ...commonStyle,
 })
 
 function App() {
@@ -98,19 +124,7 @@ function App() {
           </Stack>
           <Stack>
             <Grid container spacing={2}>
-              <Grid item xs={6} md={5} lg={4}>
-                <Stack direction='row' spacing={1} alignItems='center'>
-                  <DirectionsWalkIcon color='primary' fontSize='small' />
-                  <Link
-                    href='https://www.google.com/maps/dir//%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%A7%E0%B8%8A%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%B4%E0%B8%A8/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x30e29ed510b633d1:0x6d3b7bdcf2d8eef2?sa=X&ved=2ahUKEwib44jIx4X3AhXjzTgGHd2tDlIQ9Rd6BAhSEAQ'
-                    target='__blank'
-                    underline='hover'
-                  >
-                    Get Directions {'↗'}
-                  </Link>
-                </Stack>
-              </Grid>
-              <Grid item xs={6} md={7} lg={8}>
+              <Grid item xs={12} sm={6} md={5} lg={4}>
                 <Stack direction='row' spacing={1} alignItems='center'>
                   <DirectionsBusIcon color='primary' fontSize='small' />
                   <Link
@@ -119,6 +133,18 @@ function App() {
                     sx={{ cursor: 'pointer' }}
                   >
                     Transportation {'>'}
+                  </Link>
+                </Stack>
+              </Grid>
+              <Grid item xs={12} sm={6} md={7} lg={8}>
+                <Stack direction='row' spacing={1} alignItems='center'>
+                  <DirectionsWalkIcon color='primary' fontSize='small' />
+                  <Link
+                    href='https://www.google.com/maps/dir//%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%A7%E0%B8%8A%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%B4%E0%B8%A8/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x30e29ed510b633d1:0x6d3b7bdcf2d8eef2?sa=X&ved=2ahUKEwib44jIx4X3AhXjzTgGHd2tDlIQ9Rd6BAhSEAQ'
+                    target='__blank'
+                    underline='hover'
+                  >
+                    Get Directions {'↗'}
                   </Link>
                 </Stack>
               </Grid>
@@ -160,7 +186,7 @@ function App() {
             </li>
           </ul>
           <Typography variant='body1'>
-            All-day professional photographer is provided.
+            All-day professional photographer provided.
           </Typography>
         </>
       ),
@@ -241,7 +267,7 @@ function App() {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6} lg={4}>
             <Stack spacing={3} alignItems='center'>
-              <GroupsIcon sx={{ fontSize: 48 }} color='primary' />
+              <GroupsIcon sx={{ fontSize: 48 }} />
               <Typography variant='body1' align='center' sx={{ width: 200 }}>
                 Your presence is the best gift you can give.
               </Typography>
@@ -249,7 +275,7 @@ function App() {
           </Grid>
           <Grid item xs={12} sm={6} lg={4}>
             <Stack spacing={3} alignItems='center'>
-              <VolunteerActivismIcon sx={{ fontSize: 48 }} color='primary' />
+              <VolunteerActivismIcon sx={{ fontSize: 48 }} />
               <Typography variant='body1' align='center' sx={{ width: 200 }}>
                 Gifts are welcome but optional.
               </Typography>
@@ -257,7 +283,7 @@ function App() {
           </Grid>
           <Grid item xs={12} sm={12} lg={4}>
             <Stack spacing={3} alignItems='center'>
-              <CameraRollIcon sx={{ fontSize: 48 }} color='primary' />
+              <CameraRollIcon sx={{ fontSize: 48 }} />
               <Typography variant='body1' align='center' sx={{ width: 200 }}>
                 Polaroid is available as a souvenir if you needed.
               </Typography>
@@ -270,20 +296,25 @@ function App() {
       title: 'Health & Safety',
       content: (
         <>
-          <ul
-            style={{ paddingLeft: 21, marginBlockStart: 0, marginBlockEnd: 0 }}
-          >
-            <li style={{ marginBottom: 8 }}>
-              <Typography variant='body1'>
-                <u>Face mask</u>, <u>Proof of vaccination</u>, and{' '}
-                <u>ATK test result</u> will be required for attendees and
-                guests.
-              </Typography>
-            </li>
-            <li style={{ marginBottom: 8 }}>
+          <Typography variant='body1' sx={{ fontWeight: 500 }}>
+            Requirements:
+          </Typography>
+          <ul style={{ paddingLeft: 21, marginBlockEnd: 0 }}>
+            {/* <li style={{ marginBottom: 8 }}>
               <Typography variant='body1'>
                 Everyone are required to get vaccinated <u>at least 3 doses</u>{' '}
                 (2 doses + 1 booster), as if eligible.
+              </Typography>
+            </li> */}
+            {/* <li style={{ marginBottom: 8, textDecoration: 'line-through' }}>
+              <Typography variant='body1'>
+                <u>Proof of vaccination</u> or <u>ATK test result</u> may be
+                required for some attendees and guests.
+              </Typography>
+            </li> */}
+            <li style={{ marginBottom: 8 }}>
+              <Typography variant='body1'>
+                <u>Face masks</u> are required for all attendees and guests.
               </Typography>
             </li>
           </ul>
@@ -318,8 +349,8 @@ function App() {
           <Accordion
             elevation={0}
             sx={{
-              border: '1px solid',
-              borderColor: 'divider',
+              // border: '1px solid',
+              // borderColor: 'divider',
               borderRadius: '16px !important',
               px: 2,
               py: 0.5,
@@ -327,7 +358,7 @@ function App() {
               boxShadow: '0 4px 20px 0 rgba(0,0,0,0.12)',
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon color='primary' />}>
               <Typography
                 variant='body1'
                 sx={{ fontWeight: 500 }}
@@ -355,6 +386,9 @@ function App() {
   const [topBarTextColor, setTopBarTextColor] = useState('#fff')
   const [topBarLinkColor, setTopBarLinkColor] = useState('#fff')
 
+  const media = useTheme()
+  const matches = useMediaQuery((theme) => media.breakpoints.up('lg'))
+
   useEffect(() => {
     setTimeout(() => {
       setTopBarBgColor('#f5f5f7')
@@ -365,134 +399,133 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container sx={{ backgroundColor: '#fbfbfd' }}>
-        <Grid
-          item
-          xs={12}
-          md={4}
-          sx={{ backgroundColor: '#000', color: '#fff', minHeight: 800 }}
-        ></Grid>
-        <Grid item xs={12} md={8}>
-          <Stack
-            sx={{
-              backgroundColor: topBarBgColor,
-              py: 1.5,
-              px: 8,
-              transition: '1.8s',
-            }}
-            direction='row'
-            justifyContent='center'
-            alignItems='center'
-            spacing={2}
-          >
+      <div
+        style={{
+          position: 'fixed',
+          backgroundImage: `url(${HeroIamge})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          height: '100vh',
+          width: 600,
+          top: 0,
+          left: 0,
+          display: !matches && 'none',
+        }}
+      />
+      <div style={{ paddingLeft: matches && 600 }}>
+        <Stack spacing={10} p={{ xs: 4, sm: 8, md: 12 }}>
+          <Stack spacing={6} mb={8} alignItems='center'>
+            <SchoolIcon sx={{ fontSize: 48 }} color='primary' />
             <Typography
               variant='body1'
               align='center'
-              sx={{ color: topBarTextColor, fontSize: 14, transition: '1.8s' }}
+              sx={{ color: '#6e6e73' }}
             >
-              Please complete a{' '}
-              <Link
-                href='#'
-                underline='hover'
-                sx={{
-                  color: topBarLinkColor,
-                  fontSize: 14,
-                  transition: '1.8s',
-                }}
-              >
-                COVID-19 risk assessment
-              </Link>{' '}
-              at least 14 days before joining an event.
+              You are invited to
             </Typography>
-          </Stack>
-          <Stack spacing={10} p={{ xs: 8, md: 12 }}>
-            <Stack spacing={6} mb={8} alignItems='center'>
-              <SchoolIcon sx={{ fontSize: 48 }} color='primary' />
+            <ThemeProvider theme={themeSerif}>
               <Typography
-                variant='body1'
+                variant='h2'
+                component='h1'
+                sx={{
+                  fontWeight: 600,
+                  lineHeight: 1,
+                  mb: 1,
+                }}
                 align='center'
-                sx={{ fontSize: 18, color: '#6e6e73' }}
               >
-                You are invited to
+                Graduation
+                <br />
+                Ceremony
               </Typography>
-              <Stack alignItems='center'>
+            </ThemeProvider>
+            <Stack spacing={4} alignItems='center'>
+              <ThemeProvider theme={themeSerif}>
                 <Typography
-                  variant='h2'
+                  variant='h5'
                   component='h1'
-                  sx={{ fontWeight: 500, lineHeight: 1, mb: 1, fontSize: 90 }}
-                  align='center'
-                >
-                  Wutipat's
-                </Typography>
-                <Typography
-                  variant='h4'
-                  component='h1'
+                  color='primary'
                   sx={{ fontWeight: 600 }}
                   align='center'
                 >
-                  Graduation Ceremony
+                  Wutipat K.
                 </Typography>
-              </Stack>
-              <Stack spacing={4} alignItems='center'>
-                <Typography variant='body1' align='center'>
-                  Sunday, 24 April 2022
-                  <br />
-                  08:30 - 16:00
-                </Typography>
-                <Typography variant='body1' align='center'>
-                  Chulalongkorn University
-                </Typography>
-              </Stack>
-              <Button
-                size='large'
-                variant='contained'
-                sx={{ borderRadius: 10, textTransform: 'none' }}
-                href={CalendarEvent}
-                disableElevation
-              >
-                Add to Calendar
-              </Button>
-            </Stack>
-            {info.map((item) => (
-              <>
-                <Grid container>
-                  <Grid item xs={12} xl={3} sx={{ pr: 6 }}>
-                    <Typography
-                      variant='h4'
-                      color='secondary'
-                      sx={{ fontWeight: 500, mb: 4, mt: '-6px' }}
-                    >
-                      {item.title}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} xl={9}>
-                    <Stack spacing={3}>{item.content}</Stack>
-                  </Grid>
-                </Grid>
-                <Divider />
-              </>
-            ))}
-            <Stack alignItems='center'>
+              </ThemeProvider>
               <Typography
-                variant='caption'
-                color='textSecondary'
+                variant='body1'
                 align='center'
+                sx={{ color: '#6e6e73' }}
               >
-                Copyright © 2022{' '}
-                <Link
-                  href='https://www.bellmcp.work'
-                  target='__blank'
-                  underline='hover'
-                >
-                  Wutipat Khamnuansin
-                </Link>
-                , All rights reserved.
+                Sunday, 24 April 2022
+                <br />
+                08:30 - 16:00
+              </Typography>
+              <Typography
+                variant='body1'
+                align='center'
+                sx={{ color: '#6e6e73' }}
+              >
+                Faculty of Science
+                <br />
+                Chulalongkorn University
               </Typography>
             </Stack>
+            <Button
+              size='large'
+              variant='contained'
+              sx={{
+                borderRadius: 10,
+                textTransform: 'none',
+                transition: '0.3s',
+                boxShadow: `0 4px 40px 0 rgba(187,38,96,0.3)`,
+              }}
+              href={CalendarEvent}
+              disableElevation
+            >
+              Add to Calendar
+            </Button>
           </Stack>
-        </Grid>
-      </Grid>
-      <Dialog open={open} onClose={handleClose}>
+          {info.map((item) => (
+            <>
+              <Grid container>
+                <Grid item xs={12} xl={3} sx={{ pr: 6 }}>
+                  <Typography
+                    variant='h4'
+                    color='secondary'
+                    sx={{ fontWeight: 500, mb: 4, mt: '-6px' }}
+                  >
+                    {item.title}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} xl={9}>
+                  <Stack spacing={3}>{item.content}</Stack>
+                </Grid>
+              </Grid>
+              <Divider />
+            </>
+          ))}
+          <Stack alignItems='center'>
+            <Typography variant='caption' color='textSecondary' align='center'>
+              Copyright © 2022{' '}
+              <Link
+                href='https://www.bellmcp.work'
+                target='__blank'
+                underline='hover'
+              >
+                Wutipat Khamnuansin
+              </Link>
+              , All rights reserved.
+            </Typography>
+          </Stack>
+        </Stack>
+      </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: { borderRadius: 16 },
+        }}
+      >
         <DialogTitle>
           <Stack
             direction='row'
@@ -519,10 +552,11 @@ function App() {
                     <li>BTS Siam Station (Exit 2)</li>
                     <li>
                       Get a CU Pop Bus (Line 1 or 4) from LIDO Connect to Sala
-                      Phra Kiew.
+                      Phra Kiew¹.
                     </li>
                     <li>
-                      Head north to Maha Vachirunahit Building for about 200 m.
+                      Head north to Maha Vachirunahit Building
+                      <span style={{ color: 'grey' }}>²</span> for about 200 m.
                     </li>
                   </ul>
                 </Typography>
@@ -538,7 +572,8 @@ function App() {
                     <li>MRT Sam Yan Station (Exit 2)</li>
                     <li>Get to the campus by Chamchuri Square entrance.</li>
                     <li>
-                      Head north to Maha Vachirunahit Building for about 500 m.
+                      Head north to Maha Vachirunahit Building
+                      <span style={{ color: 'grey' }}>²</span> for about 500 m.
                     </li>
                   </ul>
                 </Typography>
@@ -562,10 +597,22 @@ function App() {
                 </Typography>
               </Stack>
             </Stack>
+            <ThemeProvider theme={themeTH}>
+              <Typography variant='caption' color='textSecondary'>
+                ¹ ศาลาพระเกี้ยว
+                <br />² อาคารมหาวชิรุณหิศ
+              </Typography>
+            </ThemeProvider>
           </Stack>
         </DialogContent>
       </Dialog>
-      <Dialog open={imgOpen} onClose={handleImgClose}>
+      <Dialog
+        open={imgOpen}
+        onClose={handleImgClose}
+        PaperProps={{
+          style: { borderRadius: 16 },
+        }}
+      >
         <DialogTitle>
           <Stack
             direction='row'
@@ -582,7 +629,7 @@ function App() {
         </DialogTitle>
         <DialogContent sx={{ p: 0 }}>
           <Avatar
-            src={COVID19Image}
+            src={ProtocolImage}
             variant='square'
             sx={{ width: '100%', height: '100%' }}
           />
