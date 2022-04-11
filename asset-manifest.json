@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/graduation/static/css/main.e6c13ad2.css",
-    "main.js": "/graduation/static/js/main.8ca2410e.js",
+    "main.js": "/graduation/static/js/main.b25cd4a4.js",
     "static/js/787.1e6f7e72.chunk.js": "/graduation/static/js/787.1e6f7e72.chunk.js",
     "static/media/01-min.JPEG": "/graduation/static/media/01-min.876243c125164ff4da3f.JPEG",
-    "static/media/covid19.jpeg": "/graduation/static/media/covid19.f93da8d9b3395fe02adc.jpeg",
+    "static/media/protocol_guest.jpeg": "/graduation/static/media/protocol_guest.81c852446793ce8b8b7e.jpeg",
     "static/media/wutipat_graduation_event.ics": "/graduation/static/media/wutipat_graduation_event.b4a000c63a0e5eba2316.ics",
     "index.html": "/graduation/index.html",
     "main.e6c13ad2.css.map": "/graduation/static/css/main.e6c13ad2.css.map",
-    "main.8ca2410e.js.map": "/graduation/static/js/main.8ca2410e.js.map",
+    "main.b25cd4a4.js.map": "/graduation/static/js/main.b25cd4a4.js.map",
     "787.1e6f7e72.chunk.js.map": "/graduation/static/js/787.1e6f7e72.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.8ca2410e.js"
+    "static/js/main.b25cd4a4.js"
   ]
 }
