@@ -369,7 +369,7 @@ function App() {
             </AccordionSummary>
             <AccordionDetails>
               <Typography variant='body1' color='textPrimary'>
-                I prefer <u>not to attend</u> the official rehearsals and
+                I prefer <u>not to attend</u> the official rehearsal and
                 commencement on 12 and 19 May for personal reasons.
                 <br /> <br />
                 Thank you for your understanding and kindly save the date for 24
