@@ -33,7 +33,7 @@ import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism'
 
 import MHVKImage from './assets/mhvk.jpeg'
 import ProtocolImage from './assets/protocol_guest.jpeg'
-import HeroIamge from './assets/01-min.JPEG'
+import HeroImage from './assets/03-min.jpg'
 import CalendarEvent from './assets/wutipat_graduation_event.ics'
 
 const PRIMARY_COLOR = '#bb2660' //'#0066cc'
@@ -163,7 +163,7 @@ function App() {
           <ul style={{ paddingLeft: 21, marginBlockEnd: 0 }}>
             <li>
               <Typography variant='body1'>
-                08:30 - 11:00 —{' '}
+                09:00 - 11:00 —{' '}
                 <span style={{ fontWeight: 500 }}>Available</span>
               </Typography>
             </li>
@@ -402,9 +402,10 @@ function App() {
       <div
         style={{
           position: 'fixed',
-          backgroundImage: `url(${HeroIamge})`,
+          backgroundImage: `url(${HeroImage})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
+          backgroundPosition: 'center center',
           height: '100vh',
           width: 600,
           top: 0,
@@ -458,7 +459,7 @@ function App() {
               >
                 Sunday, 24 April 2022
                 <br />
-                08:30 - 16:00
+                09:00 - 16:00
               </Typography>
               <Typography
                 variant='body1'
@@ -593,6 +594,19 @@ function App() {
                     <li>
                       Bus stop: Faculty of Science, Chualongkorn University
                     </li>
+                  </ul>
+                </Typography>
+              </Stack>
+            </Stack>
+            <Stack spacing={2}>
+              <Stack>
+                <Typography variant='h6' color='primary'>
+                  Parking
+                </Typography>
+                <Typography variant='body1'>
+                  <ul>
+                    <li>Samyan Mitrtown (2 Hrs. Free), 20-50 THB/Hr.</li>
+                    <li>Chamchuri Square (2 Hrs. Free), 20 THB/Hr.</li>
                   </ul>
                 </Typography>
               </Stack>
