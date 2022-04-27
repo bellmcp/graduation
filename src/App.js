@@ -14,7 +14,10 @@ import {
   AccordionSummary,
   AccordionDetails,
   Button,
+  Box,
   useMediaQuery,
+  ImageList,
+  ImageListItem,
 } from '@mui/material'
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 
@@ -99,7 +102,45 @@ function App() {
     setImgOpen(false)
   }
 
+  let itemData = []
+
+  for (var i = 1; i <= 202; i++) {
+    itemData.push({
+      img: `https://bellmcp.work/img/grad/preview/IMG${i}.jpg`,
+    })
+  }
+
   const info = [
+    {
+      title: 'Gallery',
+      content: (
+        <Stack spacing={2}>
+          <Box sx={{ width: '100%', height: 800, overflowY: 'auto' }}>
+            <ImageList variant='woven' cols={3} gap={8}>
+              {itemData.map((item) => (
+                <a
+                  href={item.img?.replace('preview/', '')}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <ImageListItem key={item.img}>
+                    <img
+                      src={`${item.img}?w=248&fit=crop&auto=format`}
+                      srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                      alt={item.img}
+                      loading='lazy'
+                    />
+                  </ImageListItem>
+                </a>
+              ))}
+            </ImageList>
+          </Box>
+          <Typography variant='body2' color='textSecondary'>
+            Tips: Click at the image to download in full resolution.
+          </Typography>
+        </Stack>
+      ),
+    },
     {
       title: 'Location',
       content: (
@@ -415,15 +456,8 @@ function App() {
       />
       <div style={{ paddingLeft: matches && 600 }}>
         <Stack spacing={10} p={{ xs: 4, sm: 8, md: 12 }}>
-          <Stack spacing={6} mb={8} alignItems='center'>
+          <Stack spacing={6} mb={8} alignItems='flex-start'>
             <SchoolIcon sx={{ fontSize: 48 }} color='primary' />
-            <Typography
-              variant='body1'
-              align='center'
-              sx={{ color: '#6e6e73' }}
-            >
-              You are invited to
-            </Typography>
             <ThemeProvider theme={themeSerif}>
               <Typography
                 variant='h2'
@@ -433,45 +467,51 @@ function App() {
                   lineHeight: 1,
                   mb: 1,
                 }}
-                align='center'
+                align='left'
               >
                 Graduation
                 <br />
                 Ceremony
               </Typography>
             </ThemeProvider>
-            <Stack spacing={4} alignItems='center'>
-              <ThemeProvider theme={themeSerif}>
-                <Typography
-                  variant='h5'
-                  component='h1'
-                  color='primary'
-                  sx={{ fontWeight: 600 }}
-                  align='center'
-                >
-                  Wutipat K.
-                </Typography>
-              </ThemeProvider>
+            <ThemeProvider theme={themeSerif}>
+              <Typography
+                variant='h5'
+                component='h1'
+                color='primary'
+                sx={{ fontWeight: 600 }}
+                align='left'
+              >
+                Wutipat K.
+              </Typography>
+            </ThemeProvider>
+            <Stack spacing={4} alignItems='flex-start'>
               <Typography
                 variant='body1'
-                align='center'
+                align='left'
                 sx={{ color: '#6e6e73' }}
               >
-                Sunday, 24 April 2022
-                <br />
-                09:00 - 16:00
+                Dear my friends and colleagues,
               </Typography>
               <Typography
                 variant='body1'
-                align='center'
+                align='left'
                 sx={{ color: '#6e6e73' }}
               >
-                Faculty of Science
+                Many thanks for coming to my graduation ceremony and for showing
+                your support.
                 <br />
-                Chulalongkorn University
+                My graduation wouldn{"'"}t be completed without your presence.
+              </Typography>
+              <Typography
+                variant='body1'
+                align='left'
+                sx={{ color: '#6e6e73' }}
+              >
+                Thanks a lot for all the encouragement and help.
               </Typography>
             </Stack>
-            <Button
+            {/* <Button
               size='large'
               variant='contained'
               sx={{
@@ -483,8 +523,8 @@ function App() {
               href={CalendarEvent}
               disableElevation
             >
-              Add to Calendar
-            </Button>
+              Down
+            </Button> */}
           </Stack>
           {info.map((item) => (
             <>
