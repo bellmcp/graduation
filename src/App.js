@@ -115,7 +115,7 @@ function App() {
 
   let itemData = []
 
-  for (var i = 1; i <= 202; i++) {
+  for (var i = 1; i <= 222; i++) {
     itemData.push({
       img: `https://bellmcp.work/img/grad/preview/IMG${i}.jpg`,
     })
