@@ -85,6 +85,8 @@ const themeSerif = createTheme({
 function App() {
   const [open, setOpen] = useState(false)
   const [imgOpen, setImgOpen] = useState(false)
+  const [galleryOpen, setGalleryOpen] = useState(false)
+  const [currentImg, setCurrentImg] = useState('')
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -102,6 +104,15 @@ function App() {
     setImgOpen(false)
   }
 
+  const handleClickGalleryOpen = (imgUrl) => {
+    setCurrentImg(imgUrl?.replace('preview/', ''))
+    setGalleryOpen(true)
+  }
+
+  const handleGalleryClose = () => {
+    setGalleryOpen(false)
+  }
+
   let itemData = []
 
   for (var i = 1; i <= 202; i++) {
@@ -115,29 +126,73 @@ function App() {
       title: 'Gallery',
       content: (
         <Stack spacing={2}>
-          <Box sx={{ width: '100%', height: 800, overflowY: 'auto' }}>
-            <ImageList variant='woven' cols={3} gap={8}>
-              {itemData.map((item) => (
-                <a
-                  href={item.img?.replace('preview/', '')}
-                  target='_blank'
-                  rel='noreferrer'
-                >
-                  <ImageListItem key={item.img}>
-                    <img
-                      src={`${item.img}?w=248&fit=crop&auto=format`}
-                      srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                      alt={item.img}
-                      loading='lazy'
-                    />
-                  </ImageListItem>
-                </a>
-              ))}
-            </ImageList>
-          </Box>
+          <ImageList
+            sx={{ width: '100%', height: 500 }}
+            variant='woven'
+            cols={3}
+            gap={8}
+          >
+            {itemData.map((item) => (
+              // <a
+              //   href={item.img?.replace('preview/', '')}
+              //   target='_blank'
+              //   rel='noreferrer'
+              // >
+              <ImageListItem
+                key={item.img}
+                onClick={() => handleClickGalleryOpen(item.img)}
+                sx={{ cursor: 'pointer' }}
+              >
+                <img
+                  src={`${item.img}?w=248&fit=crop&auto=format`}
+                  srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.img}
+                  loading='lazy'
+                />
+              </ImageListItem>
+              // </a>
+            ))}
+          </ImageList>
+
           <Typography variant='body2' color='textSecondary'>
-            Tips: Click at the image to download in full resolution.
+            Tips: Click the image to view in full resolution.
           </Typography>
+        </Stack>
+      ),
+    },
+    {
+      title: 'Special Thanks',
+      content: (
+        <Stack spacing={4}>
+          <Stack spacing={0}>
+            <Typography variant='subtitle1' sx={{ fontWeight: 500 }}>
+              My beloved crew
+            </Typography>
+            <Typography variant='body1'>
+              Euro, Prim, Putter, Ton Tan, Nam Naan, Ing Din
+            </Typography>
+          </Stack>
+          <Stack spacing={0}>
+            <Typography variant='subtitle1' sx={{ fontWeight: 500 }}>
+              My talented photographer
+            </Typography>
+            <Typography variant='body1'>
+              P'Pop of{' '}
+              <Link
+                underline='hover'
+                href='https://www.facebook.com/yep.design.studio'
+                target='_blank'
+                rel='noreferrer'
+              >
+                YEP Design Studio
+              </Link>
+            </Typography>
+          </Stack>
+          <Stack spacing={0}>
+            <Typography variant='subtitle1' sx={{ fontWeight: 500 }}>
+              My supportive friends and family {':)'}
+            </Typography>
+          </Stack>
         </Stack>
       ),
     },
@@ -474,17 +529,6 @@ function App() {
                 Ceremony
               </Typography>
             </ThemeProvider>
-            <ThemeProvider theme={themeSerif}>
-              <Typography
-                variant='h5'
-                component='h1'
-                color='primary'
-                sx={{ fontWeight: 600 }}
-                align='left'
-              >
-                Wutipat K.
-              </Typography>
-            </ThemeProvider>
             <Stack spacing={4} alignItems='flex-start'>
               <Typography
                 variant='body1'
@@ -499,10 +543,10 @@ function App() {
                 sx={{ color: '#6e6e73' }}
               >
                 Many thanks for coming to my graduation ceremony and for showing
-                your support.
-                <br />
-                My graduation wouldn{"'"}t be completed without your presence.
+                your support. My graduation wouldn{"'"}t be completed without
+                your presence.
               </Typography>
+
               <Typography
                 variant='body1'
                 align='left'
@@ -511,6 +555,17 @@ function App() {
                 Thanks a lot for all the encouragement and help.
               </Typography>
             </Stack>
+            <ThemeProvider theme={themeSerif}>
+              <Typography
+                variant='h5'
+                component='h1'
+                color='primary'
+                sx={{ fontWeight: 600 }}
+                align='left'
+              >
+                Wutipat K.
+              </Typography>
+            </ThemeProvider>
             {/* <Button
               size='large'
               variant='contained'
@@ -687,6 +742,74 @@ function App() {
             variant='square'
             sx={{ width: '100%', height: '100%' }}
           />
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={galleryOpen}
+        onClose={handleGalleryClose}
+        PaperProps={{
+          style: { borderRadius: 16 },
+        }}
+      >
+        <DialogTitle>
+          <Stack
+            direction='row'
+            alignItems='center'
+            justifyContent='space-between'
+            spacing={2}
+          >
+            <Typography variant='h5' color='inherit' sx={{ fontWeight: 500 }}>
+              {currentImg
+                ?.replace('https://bellmcp.work/img/grad/IMG', '')
+                ?.replace('.jpg', '')}
+            </Typography>
+            <Stack spacing={2} direction='row' alignItems='center'>
+              <Button
+                href={currentImg}
+                target='_blank'
+                rel='noreferrer'
+                variant='outlined'
+                sx={{
+                  borderRadius: 10,
+                  textTransform: 'none',
+                  transition: '0.3s',
+                }}
+              >
+                Download
+              </Button>
+              <IconButton color='inherit' onClick={handleGalleryClose}>
+                <CloseIcon />
+              </IconButton>
+            </Stack>
+          </Stack>
+        </DialogTitle>
+        <DialogContent sx={{ p: 0 }}>
+          <Avatar
+            src={currentImg}
+            variant='square'
+            sx={{ width: '100%', height: 'auto' }}
+          />
+          <Box sx={{ py: 2, px: 4 }}>
+            <Typography
+              component='div'
+              variant='caption'
+              align='center'
+              color='textSecondary'
+            >
+              <span style={{ fontWeight: 500, marginRight: 8 }}>
+                Photographer
+              </span>{' '}
+              P'Pop of{' '}
+              <Link
+                underline='hover'
+                href='https://www.facebook.com/yep.design.studio'
+                target='_blank'
+                rel='noreferrer'
+              >
+                YEP Design Studio
+              </Link>
+            </Typography>
+          </Box>
         </DialogContent>
       </Dialog>
     </ThemeProvider>
