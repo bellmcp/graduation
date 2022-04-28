@@ -105,7 +105,7 @@ function App() {
   }
 
   const handleClickGalleryOpen = (imgUrl) => {
-    setCurrentImg(imgUrl?.replace('preview/', ''))
+    setCurrentImg(imgUrl)
     setGalleryOpen(true)
   }
 
@@ -760,12 +760,13 @@ function App() {
           >
             <Typography variant='h5' color='inherit' sx={{ fontWeight: 500 }}>
               {currentImg
+                ?.replace('preview/', '')
                 ?.replace('https://bellmcp.work/img/grad/IMG', '')
                 ?.replace('.jpg', '')}
             </Typography>
             <Stack spacing={2} direction='row' alignItems='center'>
               <Button
-                href={currentImg}
+                href={currentImg?.replace('preview/', '')}
                 target='_blank'
                 rel='noreferrer'
                 variant='outlined'
