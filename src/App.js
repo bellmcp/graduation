@@ -82,6 +82,8 @@ const themeSerif = createTheme({
   ...commonStyle,
 })
 
+const IMG_BASE = `${process.env.PUBLIC_URL}/img/grad`
+
 function App() {
   const [open, setOpen] = useState(false)
   const [imgOpen, setImgOpen] = useState(false)
@@ -117,7 +119,7 @@ function App() {
 
   for (var i = 1; i <= 222; i++) {
     itemData.push({
-      img: `https://bellmcp.work/img/grad/preview/IMG${i}.jpg`,
+      img: `${IMG_BASE}/preview/IMG${i}.jpg`,
     })
   }
 
@@ -761,7 +763,7 @@ function App() {
             <Typography variant='h5' color='inherit' sx={{ fontWeight: 500 }}>
               {currentImg
                 ?.replace('preview/', '')
-                ?.replace('https://bellmcp.work/img/grad/IMG', '')
+                ?.replace(`${IMG_BASE}/IMG`, '')
                 ?.replace('.jpg', '')}
             </Typography>
             <Stack spacing={2} direction='row' alignItems='center'>
